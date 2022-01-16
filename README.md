@@ -2,6 +2,17 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
 
+##Clone the project 
+`git clone https://github.com/Haggar99/angular-test-project.git`
+
+
+##Intall npm package
+
+Access the directory `cd angular-test-project`
+Install the npm packages described in the `package.json` and verify that it works:
+`npm instal` 
+Run `ng serve`
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

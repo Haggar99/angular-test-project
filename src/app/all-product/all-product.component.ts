@@ -40,8 +40,6 @@ export class AllProductComponent implements OnInit {
   @HostListener('mouseout', ['$event'])
   onEvent(event: any) {
     if((event.x < 0 && event.x < 1200) || (event.y > 0 && event.y < 115)){
-    console.log(event);
-    console.log(this.filterForm.value);
     const filter = {
       category: this.filterForm.value.category,
       priceMax: this.filterForm.value.priceMax,
@@ -65,15 +63,12 @@ export class AllProductComponent implements OnInit {
   }
 
   getProduct(multiFilter?: FilterModel){
-    // this.isLoading = true;
-    console.log(this.isLoading)
     this.productService.products.subscribe(products => {
       this.categories = products
       .map(p => p.category)
       .filter((c, index, array) => array
       .indexOf(c) === index)
       .sort();
-      console.log(this.categories);
       if (multiFilter?.category) {
         products = products.filter(p => p.category === multiFilter.category);
       }
@@ -86,9 +81,7 @@ export class AllProductComponent implements OnInit {
       this.products = products
       .slice((this.currentPage - 1) * this.pageSize, this.currentPage * this.pageSize);
       this.total = products.length;
-      console.log(this.products);
     });
-    console.log(this.isLoading)
   }
 
 
@@ -96,7 +89,6 @@ export class AllProductComponent implements OnInit {
     this.isLoading = true;
     this.currentPage = event.pageIndex + 1;
     this.pageSize = event.pageSize;
-    console.log(event);
     await this.getProduct();
     this.isLoading = false;
   }

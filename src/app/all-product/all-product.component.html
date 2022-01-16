@@ -1,9 +1,9 @@
 <div class="container-fluid p-3 shadow">
   <div class=" mt-3 mb-3">
     <form [formGroup]="filterForm" *ngIf="!isLoading">
-      <div class="form-row d-flex">
-        <div class="col-3">
-          <mat-form-field appearance="fill">
+      <div class="form-row row">
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <mat-form-field appearance="fill" class="w-100">
           <mat-label>Categories</mat-label>
           <mat-select [(value)]="selected" formControlName="category">
             <mat-option>None</mat-option>
@@ -11,15 +11,13 @@
           </mat-select>
         </mat-form-field>
         </div>
-        <div class="col-3">
+        <div class="col-lg-4 col-md-12 col-sm-12">
           <input type="number" class="form-control mb-1" 
           placeholder="Price max" formControlName="priceMax">
           <input type="number" class="form-control" 
           placeholder="Price min" formControlName="priceMin">
         </div>
-        <div class="col-3 pl-2 pr-2">
-        </div>
-        <div class="col-3">
+        <div class="col-lg-4 col-md-12 col-sm-12">
           <label for="rating"> Les etoiles </label>
           <select formControlName="rating" class="form-control">
             <option selected>Les etoiles</option>
@@ -32,30 +30,35 @@
       </div> 
     </form>
   </div>
-<table class="table" *ngIf="!isLoading">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Image</th>
-        <th scope="col">Title</th>
-        <th scope="col">Price</th>
-        <th scope="col">Description</th>
-        <th scope="col">Category</th>
-        <th scope="col">Rating</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <th scope="row"> {{ product.id }} </th>
-        <td><img [src]="product.image" class="img-fluid" width="60" alt=""></td>
-        <td>{{ product.title | slice:0:15}}</td>
-        <td>$ {{ product.price }} </td>
-        <td> {{ product.description | slice:0:30 }}... </td>
-        <td> {{ product.category }} </td>
-        <td> <span><ngb-rating [rate]="product.rating.rate" [readonly]="true" [max]="5"></ngb-rating></span> </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table class="table" *ngIf="!isLoading">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <th scope="row"> {{ product.id }} </th>
+            <td><img [src]="product.image" class="img-fluid" width="60" alt=""></td>
+            <td>{{ product.title | slice:0:15}}</td>
+            <td>$ {{ product.price }} </td>
+            <td> {{ product.description | slice:0:30 }}... </td>
+            <td> {{ product.category }} </td>
+            <td> <span>
+              <!-- <ngb-rating [rate]="product.rating.rate" [readonly]="true" [max]="5"></ngb-rating> -->
+            {{product.rating.rate}}
+            </span> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   <div class=" loading" *ngIf="isLoading">
     <mat-progress-spinner mode="indeterminate" ></mat-progress-spinner>
   </div>
