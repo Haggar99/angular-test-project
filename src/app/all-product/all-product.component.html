@@ -1,0 +1,74 @@
+<div class="container-fluid p-3 shadow">
+  <div class=" mt-3 mb-3">
+    <form [formGroup]="filterForm" *ngIf="!isLoading">
+      <div class="form-row d-flex">
+        <div class="col-3">
+          <mat-form-field appearance="fill">
+          <mat-label>Categories</mat-label>
+          <mat-select [(value)]="selected" formControlName="category">
+            <mat-option>None</mat-option>
+            <mat-option [value]="cat" *ngFor="let cat of categories"> {{ cat }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </div>
+        <div class="col-3">
+          <input type="number" class="form-control mb-1" 
+          placeholder="Price max" formControlName="priceMax">
+          <input type="number" class="form-control" 
+          placeholder="Price min" formControlName="priceMin">
+        </div>
+        <div class="col-3 pl-2 pr-2">
+        </div>
+        <div class="col-3">
+          <label for="rating"> Les etoiles </label>
+          <select formControlName="rating" class="form-control">
+            <option selected>Les etoiles</option>
+            <option value="1">1 et plus</option>
+            <option value="2">2 et plus</option>
+            <option value="3">3 et plus</option>
+            <option value="4">4 et plus</option>
+        </select>
+        </div>
+      </div> 
+    </form>
+  </div>
+<table class="table" *ngIf="!isLoading">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Image</th>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+        <th scope="col">Description</th>
+        <th scope="col">Category</th>
+        <th scope="col">Rating</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <th scope="row"> {{ product.id }} </th>
+        <td><img [src]="product.image" class="img-fluid" width="60" alt=""></td>
+        <td>{{ product.title | slice:0:15}}</td>
+        <td>$ {{ product.price }} </td>
+        <td> {{ product.description | slice:0:30 }}... </td>
+        <td> {{ product.category }} </td>
+        <td> <span><ngb-rating [rate]="product.rating.rate" [readonly]="true" [max]="5"></ngb-rating></span> </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class=" loading" *ngIf="isLoading">
+    <mat-progress-spinner mode="indeterminate" ></mat-progress-spinner>
+  </div>
+  <div class="not-found" *ngIf="!isLoading && (products.length <= 0)">
+    <h1 class="text-center">No products found</h1>
+  </div>
+  <mat-paginator
+  *ngIf="!isLoading && products.length > 0"
+  [length]="total"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onPageChange($event)"
+  aria-label="Select page"
+  >
+  </mat-paginator>
+</div>
