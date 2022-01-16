@@ -35,6 +35,7 @@ export class AllProductComponent implements OnInit {
       this.isLoading = false;
       });
   }
+  @HostListener('click', ['$event'])
   @HostListener('mousemove', ['$event'])
   @HostListener('mouseenter', ['$event'])
   @HostListener('mouseout', ['$event'])
@@ -89,7 +90,15 @@ export class AllProductComponent implements OnInit {
     this.isLoading = true;
     this.currentPage = event.pageIndex + 1;
     this.pageSize = event.pageSize;
-    await this.getProduct();
+    const filter = {
+      category: this.filterForm.value.category,
+      priceMax: this.filterForm.value.priceMax,
+      priceMin: this.filterForm.value.priceMin,
+      rating: this.filterForm.value.rating
+    };
+    if (filter) {
+    await this.getProduct(filter);
+    }
     this.isLoading = false;
   }
 }
